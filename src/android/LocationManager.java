@@ -905,6 +905,13 @@ public class LocationManager extends CordovaPlugin implements BeaconConsumer {
 
                 try {
                     Region region = parseRegion(arguments);
+                    
+                    // TODO: Handle minAccuracyValue inside miniapp
+                    double minAccuracyValue = arguments.has("min_accuracy")
+                            ? arguments.getDouble("min_accuracy")
+                            : 1.0;
+                    
+
                     iBeaconManager.startRangingBeaconsInRegion(region);
 
                     PluginResult result = new PluginResult(PluginResult.Status.OK);
