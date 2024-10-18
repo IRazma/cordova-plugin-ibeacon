@@ -327,14 +327,17 @@ LocationManager.prototype.requestStateForRegion = function(region) {
  *
  * @param {Region} region An instance of {BeaconRegion} which will be monitored
  * by the operating system.
+ * 
+ * @param {Number} distance a numeric value that indicates the distance from which the application should respond to the beacon in the transmitted region. Param is optional.
  *
  * @return {Q.Promise} Returns a promise which is resolved as soon as the
  * native layer acknowledged the dispatch of the monitoring request.
  */
-LocationManager.prototype.startRangingBeaconsInRegion = function(region) {
+LocationManager.prototype.startRangingBeaconsInRegion = function(region, distance) {
 	if (!Regions.isBeaconRegion(region))
 		throw new TypeError('The region parameter has to be an instance of BeaconRegion');
 
+	region.min_accuracy = distance
 	return this._promisedExec('startRangingBeaconsInRegion', [region], []);
 };
 
